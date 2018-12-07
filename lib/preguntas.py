@@ -1,4 +1,4 @@
-{
+questions = {
     "visual" : [
         "Me ayuda trazar o escribir a mano las palabras cuando tengo que aprenderlas de memoria",
         "Necesito copiar los ejemplos de la pizarra del maestro para examinarlos mas tarde",
@@ -28,3 +28,6 @@
         "Puedo recordar mejor las cosas cuando puedo moverme mientras estoy aprendiendolas por ejemplo: caminar al estudiaro participar en una actividad que me permita moverme, etc."                
     ]
 }
+
+def get_questions():
+    return questions
