@@ -90,7 +90,7 @@ a:hover {
 .btn {
 	border-radius:0;
 	margin-top:0px;
-	background-color: #65AAF0;
+	background-color: #ff7f00;
 	text-transform:uppercase;
 	border-color:#fff;
 	font-size:14px;
@@ -98,7 +98,7 @@ a:hover {
 }
 
 .btn-primary{
-  background-color: #107A08;
+  background-color: #ff7f00;
   color: #fff;
 }
 
@@ -157,7 +157,7 @@ ul{
   position: relative;
 }
 .nav li a{
-  background-color: #ffa500;
+  background-color: #ff7f00;
   color: #fff;
   text-decoration: none;
   padding: 15px 15px;
@@ -240,8 +240,8 @@ ul{
 	border-bottom-color:#fff;
 }
 .navbar-default {
-  background-color: #ffa500;
-  border-color:#ffa500;
+  background-color: #ff7f00;
+  border-color:#ff7f00;
 }
 ////////////////////////////////////////////////////////////////////
 
