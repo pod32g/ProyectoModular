@@ -4,17 +4,19 @@ $(document).ready(function(){
 });
 
 var signUpViewModel = {
-	nombre : ko.observable(),
-	correo : ko.observable(),
-	codigo : ko.observable(),
+	name : ko.observable(),
+	lastName : ko.observable(),
+	mail : ko.observable(),
+	code : ko.observable(),
 	password : ko.observable()
 };
 
 function doPost(){
 	var signUp = {
-		"nombre" : signUpViewModel.nombre(),
-		"correo" : signUpViewModel.correo(),
-		"codigo" : signUpViewModel.codigo(),
+		"name" : signUpViewModel.name(),
+		"lastName" : signUpViewModel.lastName(),
+		"mail" : signUpViewModel.mail(),
+		"code" : signUpViewModel.code(),
 		"password" : signUpViewModel.password()
 	}
 	var signUpJson = JSON.stringify(signUp);
