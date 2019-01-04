@@ -21,7 +21,7 @@ function doPost(){
 	}
 	var signUpJson = JSON.stringify(signUp);
 	$.post("http://localhost:8000/account/signup", signUpJson, function(){
-		window.location.href = "http://localhost:8000/html/registro.html"
+		window.location.href = "http://localhost/html/registro.html"
 	});
 	return false;
 }
