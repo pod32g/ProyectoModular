@@ -10,7 +10,7 @@ var logInViewModel = {
 
 function doPost(){
 	var logIn = {
-		"code_mail" : logInViewModel.codigo_correo(),
+		"code_mail" : logInViewModel.codigo_mail(),
 		"password" : logInViewModel.password()
 	}
 	var loginJson = JSON.stringify(logIn);
