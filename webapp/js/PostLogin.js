@@ -14,12 +14,9 @@ function doPost(){
 		"password" : logInViewModel.password()
 	}
 	var loginJson = JSON.stringify(logIn);
-	$.post("http://localhost:8000/account/login", loginJson, function(){
-<<<<<<< HEAD
-		window.location.href = "http://localhost:8000/html/log_in.html"
-=======
+	$.post("http://localhost:8000/account/login/", loginJson, function(){
 		window.location.href = "http://localhost/html/log_in.html"
->>>>>>> 65d8e5a825700bcbb8b3e82338da7d0904f6b86e
+
 	});
 	return false;
 }
