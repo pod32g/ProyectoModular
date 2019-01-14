@@ -15,6 +15,8 @@
 	<link href="css/style.css" rel="stylesheet" />
 	<script src="js/lib/jquery-3.3.1.min.js"></script>
 	<script src="js/lib/knockout-3.4.2.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+	<script src="js/aunthCookies.js"></script>
   </head>
   <body>	
 	<header id="header">
@@ -26,11 +28,10 @@
 					</div>
                 </div>			                							
 					<div class="menu">
-						<ul class="nav nav-tabs">
-							<li ><a href="index.html" class="active">Inicio</a></li>
-							<li ><a href="html/tareas.html">Tareas</a></li>
-							<li ><a href="html/test.html">Test</a></li>
-							<li ><a href="html/calificaciones.html">Calificaciones</a></li>					
+						<ul data-bind="foreach: menu" class="nav nav-tabs">
+							<li>
+								<a data-bind="attr:{href: url}, text: menu"></a>
+							</li>
 						</ul>
 					</div>
             </div><!--/.container-->

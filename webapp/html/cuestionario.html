@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>E-Learning A Tu Medida</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../css/font-awesome.min.css">
+	<link rel="stylesheet" href="../css/animate.css">
+	<link href="../css/animate.min.css" rel="stylesheet"> 
+	<link href="../css/style.css" rel="stylesheet" />
+	<script src="../js/lib/jquery-3.3.1.min.js"></script>
+	<script src="../js/lib/knockout-3.4.2.js"></script>
+	<script src="../js/cuestionario.js"></script>
+  </head>
+
+  <body>	
+	<header id="header">
+        <nav class="navbar navbar-default navbar-static-top" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                	<div class="navbar-brand">
+						<a href="../index.html"><h1>E-Learning</h1></a>
+					</div>
+                </div>			
+                							
+					<div class="menu">
+						<ul class="nav nav-tabs">
+							<li ><a href="../index.html" class="active">Inicio</a></li>
+							<li ><a href="tareas.html">Tareas</a></li>
+							<li ><a href="test.html">Test</a></li>
+							<li ><a href="calificaciones.html">Calificaciones</a></li>					
+						</ul>
+					</div>
+            </div><!--/.container-->
+        </nav><!--/nav-->		
+    </header><!--/header-->	
+
+	<div class="slider">
+		<div id="about-slider">
+		    <div class="item active">
+			    <img src="../img/fondo9.png">
+				    <div class="carousel-caption">
+						<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.3s">
+							<h1><span style="color:black">Cuestionario sobre tipos de aprendizaje</span></h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<center>
+		<form action="javascript:sendAnswers()">
+			<div data-bind="foreach: preguntas">
+				<p style="color: black; font-size: 15px; font-style:bold;" data-bind="text: $data"></p>
+				<input type="radio" data-bind="attr: {name: 'respuesta' + $index()}" value="1"><p style="color: black; display: inline;">Nunca</p></input>
+				<input type="radio" data-bind="attr: {name: 'respuesta' + $index()}" value="2"><p style="color: black; display: inline;">Raramente</p></input>
+				<input type="radio" data-bind="attr: {name: 'respuesta' + $index()}" value="3"><p style="color: black; display: inline;">Ocasionalmente</p></input>
+				<input type="radio" data-bind="attr: {name: 'respuesta' + $index()}" value="4"><p style="color: black; display: inline;">Usualmente</p></input>
+				<input type="radio" data-bind="attr: {name: 'respuesta' + $index()}" value="5"><p style="color: black; display: inline;">Siempre</input>
+			</div>
+			<br>
+			<input type="submit" class="btn btn-primary">
+		</form>
+	</center>
+			
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.min.js"></script>	
+	<script src="../js/wow.min.js"></script>
+	<script>
+	wow = new WOW(
+	 {
+	
+		}	) 
+		.init();
+	</script>	
+  </body>
+</html>

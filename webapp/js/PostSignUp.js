@@ -1,5 +1,8 @@
 $(document).ready(function(){
 	ko.applyBindings(signUpViewModel);
+	$.ajaxSetup({
+	  contentType: "application/json; charset=utf-8"
+	});
 	$("#main-contact-form").submit(doPost);
 });
 
@@ -20,8 +23,8 @@ function doPost(){
 		"password" : signUpViewModel.password()
 	}
 	var signUpJson = JSON.stringify(signUp);
-	$.post("http://localhost:8000/account/signup/", signUpJson, function(){
-		window.location.href = "http://localhost/html/registro.html"
+	$.post("http://localhost:8000/account/signup", signUpJson, function(){
+		window.location.href = "http://localhost:8000/html/registro.html"
 	});
 	return false;
 }
