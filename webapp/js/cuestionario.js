@@ -7,9 +7,6 @@ function CuestionarioViewModel(){
 
 var cuestionarioViewModel = new CuestionarioViewModel();
 $(document).ready(function(){
-	$.ajaxSetup({
-  		contentType: "application/json; charset=utf-8"
-	});
 	$.getJSON("http://localhost:8000/cuestionario/json", function(cuestionarioJSON){
 		cuestionarioViewModel.preguntas(cuestionarioJSON.visual);
 		ko.utils.arrayPushAll(cuestionarioViewModel.preguntas, cuestionarioJSON.auditivo);
@@ -39,8 +36,14 @@ function sendAnswers(){
 			alert("Por favor, completa el cuestionario");
 		}
 		else{
-			$.post("http://localhost:8000/cuestionario/calificar", JSON.stringify(respuestasJSON), function(data){
-			cuestionarioViewModel.tipo(data);
+		$.ajax({
+				url : "http://localhost:8000/cuestionario/calificar",
+				contentType : "application/json",
+				data : JSON.stringify(respuestasJSON),
+				method : "post",
+				success : function(response){
+					cuestionarioViewModel.tipo(data);
+				}
 			});
 		}
 		

@@ -1,8 +1,5 @@
 $(document).ready(function(){
 	ko.applyBindings(logInViewModel);
-	$.ajaxSetup({
-  		contentType: "application/json; charset=utf-8"
-	});
 	$("#main-contact-form").submit(doPost);
 });
 
@@ -17,8 +14,14 @@ function doPost(){
 		"password" : logInViewModel.password()
 	}
 	var loginJson = JSON.stringify(logIn);
-	$.post("http://localhost:8000/account/login", loginJson, function(){
-		window.location.href = "http://localhost:8000/html/log_in.html"
+	$.ajax({
+		url : "http://localhost:8000/account/login",
+		contentType : "application/json",
+		data : loginJson,
+		method : "post",
+		success : function(response){
+			
+		}
 	});
 	return false;
 }
