@@ -1,3 +1,5 @@
+console.log(Cookies.get("Session"))
+
 $(document).ready(function(){
 	ko.applyBindings(signUpViewModel);
 	$("#main-contact-form").submit(doPost);

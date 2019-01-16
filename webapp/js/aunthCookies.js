@@ -29,3 +29,5 @@ var withUser = [
 var menuViewModel = {
 	menu : ko.observableArray(noUser)
 };
+
+console.log(Cookies.get('Session'))
