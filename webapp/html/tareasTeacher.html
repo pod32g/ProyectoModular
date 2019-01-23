@@ -15,7 +15,11 @@
 	<link href="../css/style.css" rel="stylesheet" />
 	<script src="../js/lib/jquery-3.3.1.min.js"></script>
 	<script src="../js/lib/knockout-3.4.2.js"></script>
-	<script src="../js/aunthCookies.js"></script>
+	<script src="../js/lib/js.cookies.min.js"></script>
+	<script src="../js/Session.js"></script>
+	<script src="../js/CourseViewModel.js"></script>
+	<script src="../js/HomeworkViewmodel.js"></script>
+	<script src="../js/tareasTeacher.js"></script>
   </head>
   <body>	
 	<header id="header">
@@ -25,8 +29,8 @@
                 	<div class="navbar-brand">
 						<a href="../index.html"><h1>E-Learning</h1></a>
 					</div>
-                </div>			
-                							
+                </div>
+
 					<div class="menu">
 						<ul data-bind="foreach: menu" class="nav nav-tabs">
 							<li>
@@ -35,19 +39,17 @@
 						</ul>
 					</div>
             </div><!--/.container-->
-        </nav><!--/nav-->		
+        </nav><!--/nav-->
     </header><!--/header-->	
 
 	<div class="slider">
 		<div id="about-slider">
 		    <div class="item active">
-			    <img src="../img/fondo9.png">
 				    <div class="carousel-caption">
 						<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.3s">
 							<h2><span style="color:black">Tareas</span></h2>
 						</div>
 					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -55,27 +57,31 @@
 	<div class="about">
 		<div class="container">
 			<div class="text-center">
+				<div>
+					<h4>Courses</h4>
+					<select id="course" style="color: black" data-bind="foreach: courses">
+						<option data-bind="attr:{value: course_id}, text: name"></option>
+					</select>
+				</div>
 					<table id="datos">
 						<thead>
 							<tr>
 								<th><h3>	Tarea	</h3></th>
 								<th><h3>	Fecha	</h3></th>
-								<th><h3>    Recursos</h3></th>
+								<!--th><h3>    Recursos</h3></th-->
 								<th><h3>	Descripción</h3></th>
 								<th><h3>	Detalles</h3></th>
-								<th><h3>	Calificación</h3></th>
 								<th><h3>	Editar</h3></th>
 							</tr>
 						</thead>
 						
-						<tbody data-bind="foreach: tareas">
+						<tbody data-bind="foreach: homework">
 				  			<tr>
-				  				<td><h3 data-bind="#"></h3></td>
-				  				<td><h3 data-bind="#"></h3></td>
-				  				<td><h3><a href="#" data-bind="#"></a></h3></td>
-				  				<td><h3 data-bind="#"></h3></td>
-				  				<td><h3 data-bind="#"></h3></td>
-				  				<td><h3><a data-bind="#"></a></h3></td>
+				  				<td><h3 data-bind="text: titulo"></h3></td>
+				  				<td><h3 data-bind="text: fecha_limite"></h3></td>
+				  				<!--td><h3><a href="text:" data-bind="#"></a></h3></td-->
+				  				<td><h3 data-bind="text: descripcion"></h3></td>
+				  				<td><h3 data-bind="text: tipo"></h3></td>
 				  				<td><h3><a href="editar.html">Editar</a></h3></td>
 				  			</tr>
 				  		</tbody>

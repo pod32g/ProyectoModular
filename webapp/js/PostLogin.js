@@ -22,14 +22,11 @@ function doPost(){
 		method : "post",
 		success : function(response){
 			if (response['Status'] === "All OK") {
-				Cookies.set('Session', {
-					'usr_id' : response['usr_id'],
-					'token' : response['Session']
-				})
-				console.log("All OK")
+				Cookies.set("session", new Session(response["user_id"], response["Session"], "teacher") );
+				console.log("All OK");
 			} else {
 				//TODO: reload page with error message
-				console.log("Wrong Credentials")
+				console.log("Wrong Credentials");
 			}
 		}
 	});
