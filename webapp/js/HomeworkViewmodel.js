@@ -23,7 +23,6 @@ var HomeworkViewModel = {
             success : function(response){
             }
         });
-        return false;
 	},
 	/**
 	 * Function to update an existing homework
@@ -45,37 +44,16 @@ var HomeworkViewModel = {
             success : function(response){
             }
         });
-        return false;
 	},
 	/**
 	 *Function to obtain all registered homework
 	 */
 	getHomework: function(usr_id, course_id) {
-		var homeworks = [];
-    	$.ajax({
-    	    url : "http://localhost:8000/tareas/get",
+		return 	$.ajax({
+    	    url : "http://localhost:8000/tareas/get/" + usr_id + "/" + course_id,
             contentType : "application/json",
-            data : homeworkJson,
-            method : "get",
-            success : function(homeworkJson) {
-                var homeworksJson = JSON.parse(homeworkJson);
-                homeworks = homeworkJson;
-                /*
-                TODO: check if this is necessary
-                for(var i = 0; i < homeworksJson.length; i++){
-                    var homework = {};
-                    //revisar después nombres de datos de deibid
-                    //homework["usr_id"] = usr_id;
-                    //homework["course_id"] = homeworksJson[i].course_id;
-                    homework["descripcion"] = homeworksJson[i].descripcion;
-                    homework["limite"] = homeworksJson[i].limite;
-                    homework["tipo"] = homeworksJson[i].tipo;
-                    homeworks.push(homework);
-                }*/
-
-            }
+            method : "get"
     	});
-    	return homeworks;
     }
 
 

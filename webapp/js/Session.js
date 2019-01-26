@@ -1,26 +1,26 @@
 var noUser = [
-	{menu : "Inicio", url : "index.html"},
-	{menu : "Iniciar SesiÃ³n", url : "html/log_in.html"},
-	{menu : "Crear Cuenta", url : "html/registro.html"},
+	{menu : "Inicio", url : "/webapp/index.html"},
+	{menu : "Iniciar SesiÃ³n", url : "/webapp/html/log_in.html"},
+	{menu : "Crear Cuenta", url : "/webapp/html/registro.html"},
 ];
 
 var withUserStudent = [
-	{menu : "Inicio", url : "index.html"},
-	{menu : "Cursos", url : "html/student/tareas.html"},
-	{menu : "Test", url : "html/student/cuestionario.html"},
-	{menu : "Calificaciones", url : "html/student/calificaciones.html"},
+	{menu : "Inicio", url : "/webapp/index.html"},
+	{menu : "Cursos", url : "/webapp/html/student/tareas.html"},
+	{menu : "Test", url : "/webapp/html/student/cuestionario.html"},
+	{menu : "Calificaciones", url : "/webapp/html/student/calificaciones.html"},
 	{menu : "Cerrar Sesi&oacuten"},
 ];
 
 var withUserTeacher = [
-	{menu : "Inicio", url : "index.html"},
-	{menu : "Cursos", url : "html/teacher/cursos.html"},
-	{menu : "Tareas", url : "html/teacher/tareas.html"}
+	{menu : "Inicio", url : "/webapp/index.html"},
+	{menu : "Cursos", url : "/webapp/html/teacher/cursos.html"},
+	{menu : "Tareas", url : "/webapp/html/teacher/tareas.html"}
 ];
 
 var withUserAdmin = [
-	{menu : "Inicio", url : "index.html"},
-	{menu : "Usuarios", url : "html/admin/usuarios.html"}
+	{menu : "Inicio", url : "/webapp/index.html"},
+	{menu : "Usuarios", url : "/webapp/html/admin/usuarios.html"}
 ];
 
 function Session(user_id, token, userType) {
@@ -56,6 +56,10 @@ function Session(user_id, token, userType) {
 
 function testSession() {
     var session =  new Session("1","testtoken", "teacher");
-    Cookies.set("session", session);
+    Cookies.set("session", "session");
     return session;
+}
+
+function parseSession(obj) {
+    return new Session(obj.user_id, obj.token, obj.userType);
 }
