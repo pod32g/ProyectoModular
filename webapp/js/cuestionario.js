@@ -3,6 +3,17 @@ function CuestionarioViewModel(){
 	self.preguntas = ko.observableArray();
 	self.tipo = ko.observable();
 	self.codigo = ko.observable();
+    menu = ko.observableArray([]);
+
+    init: function() {
+                var self = this;
+                var session = parseSession(Cookies.getJSON("session"));
+                if(session.isSessionActive()) {
+                    self.menu(session.getSessionMenu());
+                } else {
+                    //redirect or whatever should happen if no session exists
+                }
+            }
 }
 
 var cuestionarioViewModel = new CuestionarioViewModel();
@@ -14,6 +25,7 @@ $(document).ready(function(){
 
 	});
 	ko.applyBindings(cuestionarioViewModel);
+    cuestionarioViewModel.init();
 });
 
 function sendAnswers(){

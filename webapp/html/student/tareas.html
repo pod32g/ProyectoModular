@@ -18,7 +18,8 @@
 	<script src="../../js/lib/js.cookie.js"></script>
 	<script src="../../js/Session.js"></script>
 	<script src="../../js/CourseViewModel.js"></script>
-	<script src="../../js/courseTeacher.js"></script>
+	<script src="../../js/HomeworkViewmodel.js"></script>
+	<script src="../../js/tareasStudent.js"></script>
 </head>
 <body>
 <header id="header">
@@ -38,7 +39,7 @@
 				</ul>
 			</div>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-log-out"></span><h4>Logout</h4></a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span><h4>Logout</h4></a></li>
 			</ul>
 		</div><!--/.container-->
 	</nav><!--/nav-->
@@ -47,29 +48,38 @@
 <div class="about">
 	<div class="container">
 		<div class="text-center">
+			<div>
+				<span class="select-label">Cursos</span>
+				<select id="course" style="color: black" data-bind="foreach: courses">
+					<option data-bind="attr:{value: course_id}, text: name"></option>
+				</select>
+			</div>
 			<table id="datos" class="table table-striped">
 				<thead>
 				<tr>
-					<th scope="col"><h2>	Curso	</h2></th>
-					<th scope="col"><h2>	Inicio	</h2></th>
-					<th scope="col"><h2>	Descripción </h2></th>
+					<th scope="col"><h2>	Tarea	</h2></th>
+					<th scope="col"><h2>	Fecha	</h2></th>
 					<!--th><h3>    Recursos</h3></th-->
-					<th scope="col"><h2>	Fin</h2></th>
+					<th scope="col"><h2>	Descripción</h2></th>
+					<th scope="col" ><h2>	Detalles</h2></th>
+					<th scope="col" ><h2>	Subir</h2></th>
 				</tr>
 				</thead>
 
-				<tbody data-bind="foreach: courses">
+				<tbody data-bind="foreach: homework">
 				<tr>
-					<td scope="row"><h3 data-bind="text: name"></h3></td>
-					<td><h3 data-bind="text: start" data-editable></h3></td>
-					<td><h3 data-bind="text: descripcion" data-editable></h3></td>
+					<td scope="row"><h3 data-bind="text: titulo"></h3></td>
+					<td><h3 data-bind="text: fecha_limite"></h3></td>
 					<!--td><h3><a href="text:" data-bind="#"></a></h3></td-->
-					<td><h3 data-bind="text: end" data-editable></h3></td>
+					<td><h3 data-bind="text: descripcion"></h3></td>
+					<td><h3 data-bind="text: tipo"></h3></td>
+					<td><h3><button>Subir tarea</button></h3></td>
 				</tr>
 				</tbody>
 			</table>
-			<button style="position: absolute;" class="btn btn-primary btn-lg">Crear Curso</button>
+			<button style="position: absolute;" class="btn btn-primary btn-lg">Subir</button>
 		</div>
+
 	</div>
 </div>
 

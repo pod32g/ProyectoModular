@@ -23,7 +23,8 @@ var logInViewModel = {
     		data : loginJson,
     		method : "POST",
     		success : function(response){
-                Cookies.set("session", new Session(response["user_id"], response["Session"], "teacher") );
+                //TODO: check real value names with deibid backend and update testServer
+                Cookies.set("session", new Session(response["usr_id"], response["Session"], response["userType"]) );
                 console.log("success");
                 window.location.href = "../index.html";
     		},

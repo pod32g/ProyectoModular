@@ -27,7 +27,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                 	<div class="navbar-brand">
-						<a href="../index.html"><h1>E-Learning</h1></a>
+						<a href="../../index.html"><h1>E-Learning</h1></a>
 					</div>
                 </div>
 
@@ -39,8 +39,7 @@
 						</ul>
 					</div>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span><h4>Sign Up</h4></a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span><h4>Login</h4></a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span><h4>Logout</h4></a></li>
 				</ul>
             </div><!--/.container-->
         </nav><!--/nav-->
@@ -69,18 +68,17 @@
 						
 						<tbody data-bind="foreach: homework">
 				  			<tr>
-				  				<td scope="row"><h3 data-bind="text: titulo"></h3></td>
-				  				<td><h3 data-bind="text: fecha_limite"></h3></td>
+				  				<td scope="row"><h3 data-bind="text: titulo" data-editable></h3></td>
+				  				<td><h3 data-bind="text: fecha_limite" data-editable></h3></td>
 				  				<!--td><h3><a href="text:" data-bind="#"></a></h3></td-->
-				  				<td><h3 data-bind="text: descripcion"></h3></td>
-				  				<td><h3 data-bind="text: tipo"></h3></td>
-				  				<td><h3><a href="editar.html">Editar</a></h3></td>
+				  				<td><h3 data-bind="text: descripcion" data-editable></h3></td>
+				  				<td><h3 data-bind="text: tipo" data-editable></h3></td>
+				  				<td><h3><button onclick="editTextFields();">Editar</button></h3></td>
 				  			</tr>
 				  		</tbody>
 					</table>
 				<button style="position: absolute;" class="btn btn-primary btn-lg">Crear Tarea</button>
 			</div>
-
 		</div>			
 	</div>
 	

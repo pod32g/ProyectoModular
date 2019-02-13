@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>elearning - Tareas</title>
+
+    <!-- Bootstrap -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link href="../../css/animate.min.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet" />
+    <script src="../../js/lib/jquery-3.3.1.min.js"></script>
+    <script src="../../js/lib/knockout-3.4.2.js"></script>
+    <script src="../../js/lib/js.cookie.js"></script>
+    <script src="../../js/Session.js"></script>
+    <script src="../../js/CourseViewModel.js"></script>
+    <script src="../../js/courseStudent.js"></script>
+</head>
+<body>
+<header id="header">
+    <nav class="navbar navbar-inverse" role="banner">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-brand">
+                    <a href="../../index.html"><h1>E-Learning</h1></a>
+                </div>
+            </div>
+
+            <div class="nav navbar-nav">
+                <ul data-bind="foreach: menu" class="nav nav-tabs">
+                    <li>
+                        <a data-bind="attr:{href: url}, text: menu, css: {active: $root.active === menu}"></a>
+                    </li>
+                </ul>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span><h4>Logout</h4></a></li>
+            </ul>
+        </div><!--/.container-->
+    </nav><!--/nav-->
+</header><!--/header-->
+
+<div class="about">
+    <div class="container">
+        <div class="text-center">
+
+            <table id="datos" class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col"><h2>	Curso	</h2></th>
+                    <th scope="col"><h2>	Profesor	</h2></th>
+                    <th scope="col"><h2>	Descripción</h2></th>
+                    <th scope="col" ><h2>	Inscripción</h2></th>
+                </tr>
+                </thead>
+
+                <tbody data-bind="foreach: courses">
+                <tr>
+                    <td scope="row"><h3 data-bind="text: name"></h3></td>
+                    <td><h3 data-bind="text: profesor"></h3></td>
+                    <!--td><h3><a href="text:" data-bind="#"></a></h3></td-->
+                    <td><h3 data-bind="text: descripcion"></h3></td>
+                    <td><h3><button>Inscribirse</button></h3></td>
+                </tr>
+                </tbody>
+            </table>
+            <button style="position: absolute;" class="btn btn-primary btn-lg">Subir</button>
+        </div>
+
+    </div>
+</div>
+
+<div class="sub-footer"></div>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/wow.min.js"></script>
+<script>
+	wow = new WOW(
+	 {
+
+		}	)
+		.init();
+	</script>
+</body>
+</html>

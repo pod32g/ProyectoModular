@@ -1,15 +1,15 @@
 var noUser = [
 	{menu : "Inicio", url : "/webapp/index.html"},
 	{menu : "Iniciar SesiÃ³n", url : "/webapp/html/log_in.html"},
-	{menu : "Crear Cuenta", url : "/webapp/html/registro.html"},
+	{menu : "Crear Cuenta", url : "/webapp/html/registro.html"}
 ];
 
 var withUserStudent = [
 	{menu : "Inicio", url : "/webapp/index.html"},
-	{menu : "Cursos", url : "/webapp/html/student/tareas.html"},
+	{menu : "Tareas", url : "/webapp/html/student/tareas.html"},
+	{menu : "Cursos", url : "/webapp/html/student/cursos.html"},
 	{menu : "Test", url : "/webapp/html/student/cuestionario.html"},
-	{menu : "Calificaciones", url : "/webapp/html/student/calificaciones.html"},
-	{menu : "Cerrar Sesi&oacuten"},
+	{menu : "Calificaciones", url : "/webapp/html/student/calificaciones.html"}
 ];
 
 var withUserTeacher = [
@@ -45,6 +45,7 @@ function Session(user_id, token, userType) {
             case "student": return withUserStudent;
             case "administrator": return withUserAdmin;
             case "teacher": return withUserTeacher;
+            case "default" : return noUser;
         }
     };
     /**

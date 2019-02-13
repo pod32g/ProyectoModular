@@ -16,7 +16,7 @@ var HomeworkViewModel = {
         }
         var homeworkJson = JSON.stringify(homework);
         $.ajax({
-            url : "http://localhost:8000/tareas/new",
+            url : "http://localhost:8000/tareas/new/",
             contentType : "application/json",
             data : homeworkJson,
             method : "post",
@@ -37,7 +37,7 @@ var HomeworkViewModel = {
         }
         var homeworkJson = JSON.stringify(homework);
         $.ajax({
-            url : "http://localhost:8000/tareas/update",
+            url : "http://localhost:8000/tareas/update/",
             contentType : "application/json",
             data : homeworkJson,
             method : "post",
@@ -50,7 +50,7 @@ var HomeworkViewModel = {
 	 */
 	getHomework: function(usr_id, course_id) {
 		return 	$.ajax({
-    	    url : "http://localhost:8000/tareas/get/" + usr_id + "/" + course_id,
+    	    url : "http://localhost:8000/tareas/get/" + usr_id + "/" + course_id + "/",
             contentType : "application/json",
             method : "get"
     	});
