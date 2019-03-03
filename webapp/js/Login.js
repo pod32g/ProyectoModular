@@ -12,7 +12,7 @@ var logInViewModel = {
 	 */
 	login: function() {
 		var logIn = {
-    		"code_mail" : logInViewModel.code_mail(),
+    		"username" : logInViewModel.code_mail(),
     		"password" : logInViewModel.password()
     	}
 
@@ -24,7 +24,7 @@ var logInViewModel = {
     		method : "POST",
     		success : function(response){
                 //TODO: check real value names with deibid backend and update testServer
-                Cookies.set("session", new Session(response["usr_id"], response["Session"], response["userType"]) );
+                Cookies.set("session", new Session(response["token"], response["type"]) );
                 //console.log("success");
                 window.location.href = "../index.html";
     		},

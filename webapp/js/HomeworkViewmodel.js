@@ -1,46 +1,31 @@
 var HomeworkViewModel = {
-	descripcion : ko.observable(),
-	limite : ko.observable(),
-	tipo : ko.observable(),
 
 	/**
 	 * Function to create new homework in server
 	 */
-	createHomework: function(data) {
+	createHomework: function(data, token, callback) {
         var homeworkJson = JSON.stringify(data);
-        $.ajax({
-            url : "http://localhost:8000/tareas/new/",
-            contentType : "application/json",
-            data : homeworkJson,
-            method : "post",
-            success : function(response){
-            }
-        });
+        var request = new Request("http://localhost:8000/", token);
+        request.post("homework/new/", homeworkJson, callback);
 	},
 	/**
 	 * Function to update an existing homework
 	 */
-	updateHomework: function(data,usr_id, course_id) {
-        var homeworkJson = JSON.stringify(data);
-        $.ajax({
-            url : "http://localhost:8000/tareas/update/",
-            contentType : "application/json",
-            data : homeworkJson,
-            method : "post",
-            success : function(response){
-            }
-        });
+	updateHomework: function(data, token, callback) {
+	    var homeworkJson = JSON.stringify(data);
+	    var request = new Request("http://localhost:8000/", token);
+	    request.post("homework/update/", homeworkJson, callback);
 	},
 	/**
 	 *Function to obtain all registered homework
 	 */
-	getHomework: function(usr_id, course_id) {
-		return 	$.ajax({
-    	    url : "http://localhost:8000/tareas/get/" + usr_id + "/" + course_id + "/",
-            contentType : "application/json",
-            method : "get"
-    	});
+	getHomework: function(course_id, token, callback) {
+	    var request = new Request("http://localhost:8000/", token);
+	    request.get("homework/get", [course_id], callback);
+    },
+
+    deleteHomework: function(hw_id, token, callback){
+        var request = new Request("http://localhost:8000/", token);
+        request.get("homework/delete",[hw_id], callback);
     }
-
-
 };

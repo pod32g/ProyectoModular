@@ -23,10 +23,9 @@ var withUserAdmin = [
 	{menu : "Usuarios", url : "/webapp/html/admin/usuarios.html"}
 ];
 
-function Session(user_id, token, userType) {
+function Session(token, userType) {
     var self = this;
 
-    self.user_id = user_id;
     self.token = token;
     self.userType = userType;
 
@@ -42,20 +41,21 @@ function Session(user_id, token, userType) {
      */
     self.getSessionMenu = function() {
         switch(userType) {
-            case 3: return withUserStudent;
-            case 1: return withUserAdmin;
-            case 2: return withUserTeacher;
-            case 4: return noUser;
+            case 2: return withUserStudent;
+            case 0: return withUserAdmin;
+            case 1: return withUserTeacher;
+            case 3: return noUser;
         }
     };
     /**
      */
-    self.getUserID = function() {
-        return self.user_id;
-    }
 
     self.destroySession = function() {
         Cookies.remove("session");
+    }
+
+    self.getToken = function(){
+        return self.token;
     }
 }
 
@@ -67,7 +67,7 @@ function testSession() {
 
 function parseSession(obj) {
     if(obj != null) {
-        return new Session(obj.user_id, obj.token, obj.userType);
+        return new Session(obj.token, obj.userType);
     } else {
         return null;
     }

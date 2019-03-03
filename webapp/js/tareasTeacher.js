@@ -26,10 +26,11 @@ var tareasTeacherViewModel = {
         var self = this;
         if(self.session && self.session.isSessionActive()) {
             self.menu(self.session.getSessionMenu());
-            self.courseViewModel.getCourses(self.session.getUserID()).done(function(data) {
-                self.courses(data);
-                self.populateHomeworkTable($("#course").val());
-            });
+            self.courseViewModel.getCourses(self.session.getToken(), function(data){
+              self.courses(data.professor);
+              self.currentCourse($("#course").val());
+              self.populateHomeworkTable($("#course").val());
+          });
 
         } else {
             window.location.href = "/webapp/html/log_in.html";
@@ -40,24 +41,32 @@ var tareasTeacherViewModel = {
      */
     populateHomeworkTable: function(course_id) {
         var self = this;
-        self.homeworkViewModel.getHomework(self.session.getUserID(), course_id).done(function(data) {
-            for(var i = 0; i < data.length; i++){
-                data[i]["editable"] = ko.observable(false);
-                data[i]["editTextFields"] = function() {
-                    if(this.editable()) {
-                        this.editable(!this.editable());
-                        self.homeworkViewModel.updateHomework(this);
-                    } else {
-                        this.editable(!this.editable());
-                    }
-                };
-                    data[i]["remove"] = function() {
-                        //
-                        self.homework.remove(this);
+        self.homeworkViewModel.getHomework(course_id, self.session.getToken(), function(data) {
+            if(data != null){
+                for(var i = 0; i < data.homework.length; i++){
+                    data.homework[i]["editable"] = ko.observable(false);
+                    data.homework[i]["editTextFields"] = function() {
+                        if(this.editable()) {
+                            this.editable(!this.editable());
+                            self.homeworkViewModel.updateHomework(this, self.session.getToken(), function(data){
+                                //TODO por si se me ocurre algo
+                            });
+                        } else {
+                            this.editable(!this.editable());
+                        }
                     };
+                        data.homework[i]["remove"] = function() {
+                            var homework = this;
+                             self.homeworkViewModel.deleteHomework(homework.id, self.session.getToken(), function(data){
+                                   self.homework.remove(homework);
+                             });
+                        };
+                    delete data.homework[i].responses;
+                }
+
+                self.homework(data.homework);
             }
 
-            self.homework(data);
         });
     },
 
@@ -68,27 +77,30 @@ var tareasTeacherViewModel = {
     create: function() {
         var self = this;
         var hw = {
-            titulo: "",
-            course_id: self.currentCourse(),
-            usr_id: self.session.getUserID(),
-            fecha_limite: new Date(),
-            descripcion: "",
-            tipo: "",
+            title: "",
+            course: self.currentCourse(),
+            limit: new Date(),
+            description: "",
+            //tipo: "",
             closed: false,
             editable: ko.observable(true),
             editTextFields: function() {
                 if(this.editable()) {
+                    var tarea = this;
                     this.editable(!this.editable());
-                    self.homeworkViewModel.createHomework(this)
+                    self.homeworkViewModel.createHomework(this, self.session.getToken(), function(data){
+                        tarea.id = data.homework.id;
+                    });
                 } else {
                     this.editable(!this.editable());
                 }
             },
             remove: function() {
-                 self.homework.remove(this);
+                 var homework = this;
+                 self.homeworkViewModel.deleteHomework(homework.id, self.session.getToken(), function(data){
+                       self.homework.remove(homework);
+                 });
             }
-
-
         };
         self.homework.push(hw);
     },
@@ -96,7 +108,8 @@ var tareasTeacherViewModel = {
         var self = this;
         self.self.session.destroySession();
         window.location.href = "/webapp/html/log_in.html";
-    }
+    },
+
 };
 
 function createTestSession() {

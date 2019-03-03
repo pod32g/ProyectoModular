@@ -1,6 +1,5 @@
 var CourseViewModel = {
     //Properties
-    course_id : ko.observable(),
     name : ko.observable(),
     start : ko.observable(),
     description : ko.observable(),
@@ -15,44 +14,26 @@ var CourseViewModel = {
      */
 
 
-    getCourses: function(usr_id) {
-       var path = "http://localhost:8000/courses/get/";
-       if(usr_id != null){
-            path += usr_id + "/";
-       }
-       return $.ajax({
-            url : path,
-            contentType : "application/json",
-            headers: {
-                "Access-Control-Allow-Origin": "*"
-            },
-            method : "get",
-
-       });
+    getCourses: function(token, callback) {
+       var request = new Request("http://localhost:8000/", token);
+       request.get("courses/get", [], callback);
     },
 
-    createCourse: function(data) {
+    createCourse: function(data, token, callback) {
         var courseJson = JSON.stringify(data);
-        $.ajax({
-            url : "http://localhost:8000/cursos/new/",
-            contentType : "application/json",
-            data : courseJson,
-            method : "post",
-            success : function(response){
-            }
-        });
+        var request = new Request("http://localhost:8000/", token);
+        request.post("courses/new/", courseJson, callback);
     },
 
-    updateCourse: function(data){
+    updateCourse: function(data, token, callback){
         var courseJson = JSON.stringify(data);
-        $.ajax({
-            url : "http://localhost:8000/cursos/update/",
-            contentType : "application/json",
-            data : courseJson,
-            method : "post",
-            success : function(response){
-            }
-        });
+        var request = new Request("http://localhost:8000/", token);
+        request.post("courses/update/", courseJson, callback);
+    },
+
+    deleteCourse: function(idCourse, token, callback){
+        var request = new Request("http://localhost:8000/", token);
+        request.get("courses/delete", [idCourse], callback);
     }
 
 

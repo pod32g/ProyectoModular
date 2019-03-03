@@ -7,7 +7,7 @@ moment.locale("es");
 var coursesTeacherViewModel = {
     active : "Cursos",
     menu : ko.observableArray([]),
-    courses : ko.observableArray(),
+    courses : ko.observableArray([]),
     courseViewModel : CourseViewModel,
     session: parseSession(Cookies.getJSON("session")),
 
@@ -22,24 +22,31 @@ var coursesTeacherViewModel = {
         },
     populateCoursesTable: function(){
         var self = this;
-        self.courseViewModel.getCourses(self.session.getUserID()).done(function(data){
-            for(var i = 0; i < data.length; i++){
-                data[i]["editable"] = ko.observable(false);
-                data[i]["editTextFields"] = function() {
-                    if(this.editable()) {
-                        this.editable(!this.editable());
-                        self.courseViewModel.updateCourse(this);
-                    } else {
-                        this.editable(!this.editable());
-                    }
-                };
-                data[i]["remove"] = function() {
-                    //self.courseViewModel.deleteCourse();
-                    self.courses.remove(this);
-                };
-            }
+        self.courseViewModel.getCourses(self.session.getToken(), function(data){
+            if(data != null){
+                 for(var i = 0; i < data.professor.length; i++){
+                    data.professor[i]["editable"] = ko.observable(false);
+                    data.professor[i]["editTextFields"] = function() {
+                        if(this.editable()) {
+                            this.editable(!this.editable());
+                            self.courseViewModel.updateCourse(this, self.session.getToken(), function(){
+                                //TODO: Por si se me ocurre algo
+                            });
+                        } else {
+                            this.editable(!this.editable());
+                        }
+                    };
+                    data.professor[i]["remove"] = function() {
+                        var course = this;
+                         self.courseViewModel.deleteCourse(course.id, self.session.getToken(), function(data){
+                               self.courses.remove(course);
+                         });
+                    };
+                    delete data.professor[i].professor;
+                }
 
-            self.courses(data);
+                self.courses(data.professor);
+            }
         });
     },
 
@@ -47,21 +54,30 @@ var coursesTeacherViewModel = {
         var self = this;
         var c = {
             name: "",
-            usr_id: self.session.getUserID(),
             start: new Date(),
-            descripcion: "",
+            //descripcion: "",
             end: new Date(),
+            active: true,
+            password: "",
             editable: ko.observable(true),
             editTextFields: function() {
                 if(this.editable()) {
+                    var course = this;
                     this.editable(!this.editable());
-                    self.courseViewModel.createCourse(this)
+                    this.start = moment(this.start).format("YYYY-MM-DD");
+                    this.end = moment(this.start).format("YYYY-MM-DD");
+                    self.courseViewModel.createCourse(this, self.session.getToken(), function(data){
+                        course.id = data.course.id;
+                    });
                 } else {
                     this.editable(!this.editable());
                 }
             },
             remove: function() {
-                self.courses.remove(this);
+                var course = this;
+                 self.courseViewModel.deleteCourse(course.id, self.session.getToken(), function(data){
+                       self.courses.remove(course);
+                 });
             }
 
 
