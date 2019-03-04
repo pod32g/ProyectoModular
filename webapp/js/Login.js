@@ -25,7 +25,7 @@ var logInViewModel = {
     		success : function(response){
                 //TODO: check real value names with deibid backend and update testServer
                 Cookies.set("session", new Session(response["usr_id"], response["Session"], response["userType"]) );
-                console.log("success");
+                //console.log("success");
                 window.location.href = "../index.html";
     		},
     		error: function(response) {

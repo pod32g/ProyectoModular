@@ -21,7 +21,7 @@ var tareasStudentViewModel = {
     init: function() {
         var self = this;
         var session = parseSession(Cookies.getJSON("session"));
-        if(session.isSessionActive()) {
+        if(session && session.isSessionActive()) {
             self.menu(session.getSessionMenu());
             self.courseViewModel.getCourses(session.getUserID()).done(function(data) {
                 console.log(data);
@@ -29,7 +29,7 @@ var tareasStudentViewModel = {
             });
             self.populateHomeworkTable($("#course").val());
         } else {
-            //redirect or whatever should happen if no session exists
+            window.location.href = "/webapp/html/log_in.html";
         }
     },
     /**

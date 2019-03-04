@@ -31,16 +31,8 @@ var CourseViewModel = {
        });
     },
 
-    createCourse: function() {
-        var course = {
-            "usr_id" : usr_id,
-            "nombre" : name(),
-            "inicio" : start(),
-            "descripcion" : description(),
-            "fin" : end(),
-            "pass" : pass()
-        }
-        var courseJson = JSON.stringify(course);
+    createCourse: function(data) {
+        var courseJson = JSON.stringify(data);
         $.ajax({
             url : "http://localhost:8000/cursos/new/",
             contentType : "application/json",
@@ -51,16 +43,8 @@ var CourseViewModel = {
         });
     },
 
-    updateCourse: function(){
-        var course = {
-            "usr_id" : usr_id,
-            "nombre" : name(),
-            "inicio" : start(),
-            "descripcion" : description(),
-            "fin" : end(),
-            "pass" : pass()
-        }
-        var courseJson = JSON.stringify(course);
+    updateCourse: function(data){
+        var courseJson = JSON.stringify(data);
         $.ajax({
             url : "http://localhost:8000/cursos/update/",
             contentType : "application/json",

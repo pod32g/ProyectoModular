@@ -42,16 +42,20 @@ function Session(user_id, token, userType) {
      */
     self.getSessionMenu = function() {
         switch(userType) {
-            case "student": return withUserStudent;
-            case "administrator": return withUserAdmin;
-            case "teacher": return withUserTeacher;
-            case "default" : return noUser;
+            case 3: return withUserStudent;
+            case 1: return withUserAdmin;
+            case 2: return withUserTeacher;
+            case 4: return noUser;
         }
     };
     /**
      */
     self.getUserID = function() {
         return self.user_id;
+    }
+
+    self.destroySession = function() {
+        Cookies.remove("session");
     }
 }
 
@@ -62,5 +66,9 @@ function testSession() {
 }
 
 function parseSession(obj) {
-    return new Session(obj.user_id, obj.token, obj.userType);
+    if(obj != null) {
+        return new Session(obj.user_id, obj.token, obj.userType);
+    } else {
+        return null;
+    }
 }

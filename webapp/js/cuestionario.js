@@ -8,10 +8,10 @@ function CuestionarioViewModel(){
     init: function() {
                 var self = this;
                 var session = parseSession(Cookies.getJSON("session"));
-                if(session.isSessionActive()) {
+                if(session && session.isSessionActive()) {
                     self.menu(session.getSessionMenu());
                 } else {
-                    //redirect or whatever should happen if no session exists
+                    window.location.href = "/webapp/html/log_in.html";
                 }
             }
 }

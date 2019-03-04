@@ -6,15 +6,8 @@ var HomeworkViewModel = {
 	/**
 	 * Function to create new homework in server
 	 */
-	createHomework: function(usr_id, course_id) {
-	    var homework = {
-            "usr_id" : usr_id,
-            "course_id" : course_id,
-            "descripcion" : descripcion(),
-            "limite" : limite(),
-            "tipo" : tipo()
-        }
-        var homeworkJson = JSON.stringify(homework);
+	createHomework: function(data) {
+        var homeworkJson = JSON.stringify(data);
         $.ajax({
             url : "http://localhost:8000/tareas/new/",
             contentType : "application/json",
@@ -27,15 +20,8 @@ var HomeworkViewModel = {
 	/**
 	 * Function to update an existing homework
 	 */
-	updateHomework: function(usr_id, course_id) {
-        var homework = {
-            "usr_id" : usr_id,
-            "course_id" : course_id,
-            "descripcion" : descripcion(),
-            "limite" : limite(),
-            "tipo" : tipo()
-        }
-        var homeworkJson = JSON.stringify(homework);
+	updateHomework: function(data,usr_id, course_id) {
+        var homeworkJson = JSON.stringify(data);
         $.ajax({
             url : "http://localhost:8000/tareas/update/",
             contentType : "application/json",
@@ -58,4 +44,3 @@ var HomeworkViewModel = {
 
 
 };
-
