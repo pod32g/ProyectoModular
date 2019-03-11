@@ -41,10 +41,11 @@ function Session(token, userType) {
      */
     self.getSessionMenu = function() {
         switch(userType) {
-            case 2: return withUserStudent;
-            case 0: return withUserAdmin;
-            case 1: return withUserTeacher;
-            case 3: return noUser;
+            case 3: return withUserStudent;
+            case 0: return withUserSuperUser;
+            case 2: return withUserTeacher;
+            case 4: return noUser;
+            case 1: return withUserAdmin;
         }
     };
     /**
