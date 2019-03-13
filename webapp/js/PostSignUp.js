@@ -15,15 +15,15 @@ var signUpViewModel = {
 
 function doPost(){
 	var signUp = {
-		"name" : signUpViewModel.name(),
-		"lastName" : signUpViewModel.lastName(),
-		"mail" : signUpViewModel.mail(),
+		"first_name" : signUpViewModel.name(),
+		"last_name" : signUpViewModel.lastName(),
+		"email" : signUpViewModel.mail(),
 		"code" : signUpViewModel.code(),
 		"password" : signUpViewModel.password()
 	}
 	var signUpJson = JSON.stringify(signUp);
 	$.ajax({
-		url : "http://localhost:8000/account/signup",
+		url : "http://localhost:8000/account/signup/",
 		contentType : "application/json",
 		data : signUpJson,
 		method : "post",

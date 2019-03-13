@@ -1,13 +1,13 @@
 $(document).ready(function() {
     //createTestSession();
-    ko.applyBindings(tareasStudentViewModel);
+    ko.applyBindings(notesStudentViewModel);
     $("#course").change(function() {
-       tareasStudentViewModel.populateHomeworkTable($(this).val());
+       notesStudentViewModel.populateHomeworkTable($(this).val());
     });
-    tareasStudentViewModel.init();
+    notesStudentViewModel.init();
 });
 
-var tareasStudentViewModel = {
+var notesStudentViewModel = {
     active: "Tareas",
     menu: ko.observableArray([]),
     homework: ko.observableArray(),
@@ -51,12 +51,6 @@ var tareasStudentViewModel = {
         });
     },
 
-    send: function(){
-        var archivo = $("#fileupload").prop("files");
-        var fileReader = new FileReader();
-        var file = fileReader.readAsBinaryString(archivo[0]);
-        console.log(fileReader.result);
-    }
 };
 
 function createTestSession() {

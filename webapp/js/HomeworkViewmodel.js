@@ -3,10 +3,13 @@ var HomeworkViewModel = {
 	/**
 	 * Function to create new homework in server
 	 */
-	createHomework: function(data, token, callback) {
+	createHomework: function(data, token, callback, file) {
         var homeworkJson = JSON.stringify(data);
+        var formData = new FormData();
+        formData.append("file", file);
+        formData.append("request", homeworkJson);
         var request = new Request("http://localhost:8000/", token);
-        request.post("homework/new/", homeworkJson, callback);
+        request.post("homework/new/", formData, callback, false, false);
 	},
 	/**
 	 * Function to update an existing homework
@@ -27,5 +30,11 @@ var HomeworkViewModel = {
     deleteHomework: function(hw_id, token, callback){
         var request = new Request("http://localhost:8000/", token);
         request.get("homework/delete",[hw_id], callback);
+    },
+
+    sendHomework: function(data, token, callback){
+        var homeworkJson = JSON.stringify(data);
+        var request = new Request("http://localhost:8000/", token);
+        request.post("homework/response/new/",homeworkJson, type, callback);
     }
 };

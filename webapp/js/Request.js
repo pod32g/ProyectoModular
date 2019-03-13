@@ -2,6 +2,7 @@ class Request {
 
     constructor(url, token) {
         this.url = url;
+        this.contentType = "application/json";
         if (token !== null) {
             this.header = "Bearer " + token;
         }
@@ -29,11 +30,18 @@ class Request {
 
     }
 
-    post(route, data, callback) {
-
+    post(route, data, callback, type, processData) {
+        var pd = true;
+        if(processData != null){
+            pd = processData;
+        }
+        if(type != null){
+            this.contentType = type;
+        }
         $.ajax({
             url: this.url + route,
-            contentType: "application/json",
+            contentType: this.contentType,
+            processData: pd,
             data: data,
             method: "POST",
             headers: {

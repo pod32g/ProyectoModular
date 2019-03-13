@@ -23,6 +23,10 @@ var withUserAdmin = [
 	{menu : "Usuarios", url : "/webapp/html/admin/usuarios.html"}
 ];
 
+var withUserSuperUser = [
+    {menu : "Inicio", url: "/webapp/index.html"}
+];
+
 function Session(token, userType) {
     var self = this;
 
@@ -36,6 +40,8 @@ function Session(token, userType) {
     self.isSessionActive =  function() {
         var cookie = Cookies.get("Session");
         return cookie !== null ? true : false;
+
+
     };
     /**
      */

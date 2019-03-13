@@ -19,6 +19,11 @@ var CourseViewModel = {
        request.get("courses/get", [], callback);
     },
 
+    getAllCourses: function(token, callback){
+        var request = new Request("http://localhost:8000/", token);
+        request.get("courses/get/all", [], callback);
+    },
+
     createCourse: function(data, token, callback) {
         var courseJson = JSON.stringify(data);
         var request = new Request("http://localhost:8000/", token);
@@ -34,6 +39,12 @@ var CourseViewModel = {
     deleteCourse: function(idCourse, token, callback){
         var request = new Request("http://localhost:8000/", token);
         request.get("courses/delete", [idCourse], callback);
+    },
+
+    enrollCourse: function(data, token, type, callback){
+        var courseJson = JSON.stringify(data);
+        var request = new Request("http://localhost:8000/", token);
+        request.post("courses/enroll/", courseJson, callback);
     }
 
 

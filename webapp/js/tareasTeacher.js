@@ -74,6 +74,7 @@ var tareasTeacherViewModel = {
         var self = this;
         self.homeworkViewModel.update()
     },
+
     create: function() {
         var self = this;
         var hw = {

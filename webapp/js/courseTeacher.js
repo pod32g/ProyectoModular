@@ -29,6 +29,8 @@ var coursesTeacherViewModel = {
                     data.professor[i]["editTextFields"] = function() {
                         if(this.editable()) {
                             this.editable(!this.editable());
+                            this.start = moment(this.start).format("YYYY-MM-DD");
+                            this.end = moment(this.end).format("YYYY-MM-DD");
                             self.courseViewModel.updateCourse(this, self.session.getToken(), function(){
                                 //TODO: Por si se me ocurre algo
                             });
