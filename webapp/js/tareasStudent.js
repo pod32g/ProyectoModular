@@ -12,6 +12,7 @@ var tareasStudentViewModel = {
     menu: ko.observableArray([]),
     homework: ko.observableArray(),
     homeworkViewModel: HomeworkViewModel,
+    content: ko.observable(""),
     courseViewModel: CourseViewModel,
     courses: ko.observableArray(),
     session: parseSession(Cookies.getJSON("session")),
@@ -46,16 +47,25 @@ var tareasStudentViewModel = {
         var self = this;
         self.homeworkViewModel.getHomework(course_id, self.session.getToken(), function(data) {
             if(data != null){
-                self.homework(data.homework)
+                data.homework.forEach(function(element){
+                   element.openModal = function(){
+                        $("#modalEnroll").modal("show");
+                        $("#modalEnroll").on("hide.bs.modal", function(){
+                            self.send(element);
+                        });
+                   }
+                });
+                self.homework(data.homework);
             }
         });
     },
 
-    send: function(){
-        var archivo = $("#fileupload").prop("files");
-        var fileReader = new FileReader();
-        var file = fileReader.readAsBinaryString(archivo[0]);
-        console.log(fileReader.result);
+    send: function(data){
+        var self = this;
+        var archivo = $("#fileupload").prop("files")[0];
+        self.homeworkViewModel.sendHomework(data.id, self.content(), true, self.session.getToken(), archivo, function(){
+            //TODO: Eventaulemtne hara algo
+        });
     }
 };
 

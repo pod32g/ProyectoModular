@@ -24,7 +24,12 @@ var withUserAdmin = [
 ];
 
 var withUserSuperUser = [
-    {menu : "Inicio", url: "/webapp/index.html"}
+    {menu : "Inicio", url: "/webapp/index.html"},
+    {menu : "Cursos Prof", url: "/webapp/html/teacher/cursos.html"},
+    {menu : "Tareas Prof", url: "/webapp/html/teacher/tareas.html"},
+    {menu : "Tareas Est", url: "/webapp/html/student/tareas.html"},
+    {menu : "Cursos Est", url: "/webapp/html/student/cursos.html"},
+    {menu : "Calif Est", url: "/webapp/html/student/calificaciones.html"}
 ];
 
 function Session(token, userType) {
@@ -59,6 +64,7 @@ function Session(token, userType) {
 
     self.destroySession = function() {
         Cookies.remove("session");
+        window.location.href = "/webapp/html/log_in.html";
     }
 
     self.getToken = function(){

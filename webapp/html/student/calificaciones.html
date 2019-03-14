@@ -21,7 +21,7 @@
 	<script src="../../js/Request.js"></script>
 	<script src="../../js/CourseViewModel.js"></script>
 	<script src="../../js/HomeworkViewmodel.js"></script>
-	<script src="../../js/tareasStudent.js"></script>
+	<script src="../../js/notesStudent.js"></script>
 </head>
 <body>
 <header id="header">
@@ -41,7 +41,7 @@
 				</ul>
 			</div>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span><h4>Logout</h4></a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-out" data-bind="click: destroySession"></span><h4>Logout</h4></a></li>
 			</ul>
 		</div><!--/.container-->
 	</nav><!--/nav-->
@@ -96,7 +96,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary"  data-bind="click: send" data-dismiss="modal">Subir Tarea</button>
+						<button type="button" class="btn btn-primary"   data-dismiss="modal">Subir Tarea</button>
 					</div>
 				</div>
 			</div>
@@ -105,7 +105,6 @@
 	</div>
 </div>
 
-<div class="sub-footer"></div>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="../../js/lib/bootstrap.min.js"></script>

@@ -84,14 +84,28 @@ var tareasTeacherViewModel = {
             description: "",
             //tipo: "",
             closed: false,
+            file: ko.observable(),
             editable: ko.observable(true),
+            setFile: function(data, e){
+                var hw = this;
+                var file    = e.target.files[0];
+                /*var reader  = new FileReader();
+                reader.onloadend = function (onloadend_e){
+                   var result = reader.result; // Here is your base 64 encoded file. Do with it what you want.
+                   hw.file(result);
+                };
+                if(file){
+                    reader.readAsDataURL(file);
+                }*/
+                hw.file(file);
+            },
             editTextFields: function() {
                 if(this.editable()) {
                     var tarea = this;
                     this.editable(!this.editable());
                     self.homeworkViewModel.createHomework(this, self.session.getToken(), function(data){
                         tarea.id = data.homework.id;
-                    });
+                    }, this.file());
                 } else {
                     this.editable(!this.editable());
                 }

@@ -75,7 +75,7 @@
 					<!--td><h3><a href="text:" data-bind="#"></a></h3></td-->
 					<td><h3 data-bind="text: description"></h3></td>
 					<!--td><h3 data-bind="text: tipo"></h3></td>-->
-					<td><h3><button data-toggle="modal" data-target="#modalEnroll">Subir tarea</button></h3></td>
+					<td><h3><button data-bind="click: openModal">Subir tarea</button></h3></td>
 				</tr>
 				</tbody>
 			</table>
@@ -92,11 +92,13 @@
 					</div>
 					<div class="modal-body">
 						<h3>Seleccione el archivo de su computadora</h3>
-						<input id="fileupload" type="file" enctype="multipart/form-data"/>
+						<h3><input id="fileupload" type="file" enctype="multipart/form-data"/></h3>
+						<h3>O desarrolle su tarea en el siguiente campo: </h3>
+						<textarea rows="15" cols="15" data-bind="textInput: content"></textarea>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary"  data-bind="click: send" data-dismiss="modal">Subir Tarea</button>
+						<button type="button" class="btn btn-primary"   data-dismiss="modal">Subir Tarea</button>
 					</div>
 				</div>
 			</div>
@@ -105,7 +107,6 @@
 	</div>
 </div>
 
-<div class="sub-footer"></div>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="../../js/lib/bootstrap.min.js"></script>

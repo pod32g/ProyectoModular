@@ -41,7 +41,7 @@ var CourseViewModel = {
         request.get("courses/delete", [idCourse], callback);
     },
 
-    enrollCourse: function(data, token, type, callback){
+    enrollCourse: function(data, token, callback){
         var courseJson = JSON.stringify(data);
         var request = new Request("http://localhost:8000/", token);
         request.post("courses/enroll/", courseJson, callback);

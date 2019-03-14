@@ -32,9 +32,21 @@ var HomeworkViewModel = {
         request.get("homework/delete",[hw_id], callback);
     },
 
-    sendHomework: function(data, token, callback){
-        var homeworkJson = JSON.stringify(data);
+    sendHomework: function(id, answer, sent, token, file, callback){
+        if(file == null){
+            console.log("El archivo esta empty");
+            return;
+        }
+        var json = {
+            "homework": id,
+            "answer": answer,
+            "sent": sent
+        }
+        var homeworkJson = JSON.stringify(json);
+        var formData = new FormData();
+        formData.append("file", file);
+        formData.append("request", homeworkJson);
         var request = new Request("http://localhost:8000/", token);
-        request.post("homework/response/new/",homeworkJson, type, callback);
+        request.post("homework/response/new/",formData, callback, false, false);
     }
 };

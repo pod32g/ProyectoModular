@@ -51,6 +51,11 @@ var notesStudentViewModel = {
         });
     },
 
+    destroySession: function(){
+        var self = this;
+        self.session.destroySession();
+    }
+
 };
 
 function createTestSession() {
