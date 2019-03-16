@@ -15,6 +15,8 @@ var tareasStudentViewModel = {
     content: ko.observable(""),
     courseViewModel: CourseViewModel,
     courses: ko.observableArray(),
+    file: ko.observable(),
+    uploaded: ko.observable(false),
     session: parseSession(Cookies.getJSON("session")),
 
     /**
@@ -48,7 +50,20 @@ var tareasStudentViewModel = {
         self.homeworkViewModel.getHomework(course_id, self.session.getToken(), function(data) {
             if(data != null){
                 data.homework.forEach(function(element){
+                   element.gradeObservable = ko.observable("-");
+                   element.uploaded = ko.observable(false);
+                   if(element.response != null &&  element.response.length > 0){
+                        if(element.response[0].graded){
+                            element.gradeObservable(element.response[0].grade);
+                        }
+                        element.uploaded(true);
+                        self.uploaded(true);
+                   }
                    element.openModal = function(){
+                        if(element.response != null && element.response.length > 0){
+                            self.content(element.response[0].answer);
+                            self.file("http://localhost:8000" + element.response[0].file);
+                        }
                         $("#modalEnroll").modal("show");
                         $("#modalEnroll").on("hide.bs.modal", function(){
                             self.send(element);
@@ -62,11 +77,26 @@ var tareasStudentViewModel = {
 
     send: function(data){
         var self = this;
-        var archivo = $("#fileupload").prop("files")[0];
-        self.homeworkViewModel.sendHomework(data.id, self.content(), true, self.session.getToken(), archivo, function(){
-            //TODO: Eventaulemtne hara algo
-        });
+        if($(document.activeElement)[0] == $("#send")[0]){
+            var archivo = $("#fileupload").prop("files")[0];
+            if(data.uploaded()){
+                self.homeworkViewModel.updateStudentHomework(data.id, self.content(), true, archivo, self.session.getToken(), function(){
+                    //TODO: ya hare algo con el error
+                });
+            }
+            else{
+                self.homeworkViewModel.sendHomework(data.id, self.content(), true, self.session.getToken(), archivo, function(){
+                    //TODO: Eventaulemtne hara algo
+                });
+            }
+        }
+    },
+    destroySession: function(){
+        var self = this;
+        self.session.destroySession();
     }
+
+
 };
 
 function createTestSession() {

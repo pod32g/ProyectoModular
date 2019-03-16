@@ -18,28 +18,34 @@
 	<script src="../js/lib/client-modules.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 	<script src="../js/Session.js"></script>
-	<script src="../js/mainModel.js"></script>
     <script src="../js/Login.js"></script>
 </head>
 
 <body>
-	<header id="header">
-        <nav class="navbar navbar-default navbar-static-top" role="banner">
-            <div class="container">
+    <header id="header">
+        <nav class="navbar navbar-inverse" role="banner">
+            <div class="container-fluid">
                 <div class="navbar-header">
-                	<div class="navbar-brand">
-						<a href="../index.html"><h1>E-Learning</h1></a>
-					</div>
-                </div>			
-                							
+                    <div class="navbar-brand">
+                        <a href="index.html"><h1>E-Learning</h1></a>
+                    </div>
+                </div>
+                <div class="nav navbar-nav">
+                    <ul data-bind="foreach: menu" class="nav nav-tabs">
+                        <li>
+                            <a data-bind="attr:{href: url}, text: menu, css: {active: $root.active === menu}"></a>
+                        </li>
+                    </ul>
+                </div>
+
             </div><!--/.container-->
-        </nav><!--/nav-->		
+        </nav><!--/nav-->
     </header><!--/header-->
 
-    
 
 
-	<div class="slider">
+
+<div class="slider">
 		<div id="about-slider">
 		    <div class="item active">
 			    <img src="../img/fondo9.png">

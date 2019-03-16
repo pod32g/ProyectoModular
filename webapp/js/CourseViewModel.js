@@ -24,13 +24,25 @@ var CourseViewModel = {
         request.get("courses/get/all", [], callback);
     },
 
-    createCourse: function(data, token, callback) {
+    createCourse: function(course, token, callback) {
+        var data = JSON.parse(JSON.stringify(course));
+        if(!course.password()){
+            data.password_str = null;
+        }
+        data.password = data.password_str;
+        delete data.password_str;
         var courseJson = JSON.stringify(data);
         var request = new Request("http://localhost:8000/", token);
         request.post("courses/new/", courseJson, callback);
     },
 
-    updateCourse: function(data, token, callback){
+    updateCourse: function(course, token, callback){
+    var data = JSON.parse(JSON.stringify(course));
+        if(!course.password()){
+            data.password_str = null;
+        }
+        data.password = data.password_str;
+        delete data.password_str;
         var courseJson = JSON.stringify(data);
         var request = new Request("http://localhost:8000/", token);
         request.post("courses/update/", courseJson, callback);

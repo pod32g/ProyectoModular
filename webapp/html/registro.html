@@ -16,35 +16,36 @@
 	<script src="../js/lib/jquery-3.3.1.min.js"></script>
 	<script src="../js/lib/knockout-3.4.2.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+	<script src="../js/Session.js"></script>
 	<script src="../js/PostSignUp.js"></script>
 </head>
 
 <body>
 	<header id="header">
-        <nav class="navbar navbar-default navbar-static-top" role="banner">
-            <div class="container">
-                <div class="navbar-header">
-                	<div class="navbar-brand">
-						<a href="../index.html"><h1>E-Learning</h1></a>
+		<nav class="navbar navbar-inverse" role="banner">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<div class="navbar-brand">
+						<a href="index.html"><h1>E-Learning</h1></a>
 					</div>
-                </div>			
-                							
-					<div class="menu">
-						<ul class="nav nav-tabs">
-							<li ><a href="../index.html" class="active">Inicio</a></li>
-							<li ><a href="tareas.html">Tareas</a></li>
-							<li ><a href="test.html">Test</a></li>
-							<li ><a href="calificaciones.html">Calificaciones</a></li>					
-						</ul>
-					</div>
-            </div><!--/.container-->
-        </nav><!--/nav-->		
-    </header><!--/header-->
+				</div>
+				<div class="nav navbar-nav">
+					<ul data-bind="foreach: menu" class="nav nav-tabs">
+						<li>
+							<a data-bind="attr:{href: url}, text: menu, css: {active: $root.active === menu}"></a>
+						</li>
+					</ul>
+				</div>
 
-    
+			</div><!--/.container-->
+		</nav><!--/nav-->
+	</header><!--/header-->
 
 
-	<div class="slider">
+
+
+
+<div class="slider">
 		<div id="about-slider">
 		    <div class="item active">
 			    <img src="../img/fondo9.png">
@@ -89,8 +90,8 @@
 	
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../js//lib/bootstrap.min.js"></script>
-	<script src="../js/wow.min.js"></script>
+    <script src="../js/lib/bootstrap.min.js"></script>
+	<script src="../js/lib/wow.min.js"></script>
 	<script>
 	wow = new WOW(
 	 {

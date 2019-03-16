@@ -1,6 +1,5 @@
-console.log(Cookies.get("Session"))
-
 $(document).ready(function(){
+    signUpViewModel.init();
 	ko.applyBindings(signUpViewModel);
 	$("#main-contact-form").submit(doPost);
 });
@@ -10,7 +9,17 @@ var signUpViewModel = {
 	lastName : ko.observable(),
 	mail : ko.observable(),
 	code : ko.observable(),
-	password : ko.observable()
+	password : ko.observable(),
+	menu : ko.observableArray([]),
+
+	init : function(){
+	    var self = this;
+	    var session = parseSession(Cookies.getJSON("session"));
+        if(session != null && session.isSessionActive()) {
+            window.location.href = "../index.html";
+         }
+        self.menu(getNoUserMenu());
+	}
 };
 
 function doPost(){

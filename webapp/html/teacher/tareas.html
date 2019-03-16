@@ -22,6 +22,7 @@
 	<script src="../../js/lib/js.cookie.js"></script>
 	<script src="../../js/Session.js"></script>
 	<script src="../../js/Request.js"></script>
+	  <script src="../../js/datePickerConfig.js"></script>
 	<script src="../../js/CourseViewModel.js"></script>
 	<script src="../../js/HomeworkViewmodel.js"></script>
 	<script src="../../js/tareasTeacher.js"></script>
@@ -44,7 +45,7 @@
 						</ul>
 					</div>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a id="logout" href="#" data-bind="click: logout"><span class="glyphicon glyphicon-log-in"></span><h4>Logout</h4></a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-log-out" data-bind="click: destroySession"></span><h4>Logout</h4></a></li>
 				</ul>
             </div><!--/.container-->
         </nav><!--/nav-->
@@ -67,6 +68,7 @@
 								<th scope="col"><h2>	Descripción</h2></th>-
 								<!--th scope="col" ><h2>	Detalles</h2></th>-->
 								<!--th scope="col"><h2>    Recursos</h2></th-->
+								<th scope="col"><h2> Calificar tarea</h2></th>
 								<th scope="col" ><h2>	Editar</h2></th>
 								<th scope="col"><h2>Eliminar</h2></th>
 							</tr>
@@ -75,10 +77,11 @@
 						<tbody data-bind="foreach: homework">
 				  			<tr>
 								<td scope="row"><h3><input data-bind="textInput: title, enable: editable"/></h3></td>
-								<td><h3><input class="date" data-bind="datepicker: {value: limit}, value: moment(limit).format('LL'), enable: editable"/></h3></td>
+								<td><h3><input class="date" data-bind="datepicker: limitObservable, datepickerOptions: {dateFormat: 'dd-mm-yy'}, enable: editable"/></h3></td>
 								<td><h3><textArea data-bind="textInput: description, enable: editable"></textArea></h3></td>
 								<!--td><h3><input data-bind="textInput: tipo, enable: editable" /></h3></td></td>-->
 								<!--td><h3><input /></h3></td-->
+								<td><h3><button data-bind="click: calificar ? calificar : null, enable: calificar != null"> Calificar </button></h3></td>
 				  				<td><h3><a data-bind="click: editTextFields">
 									<span data-bind="attr: {class: editable() ? 'glyphicon glyphicon-ok':'glyphicon glyphicon-pencil'}"></span>
 								</a></h3></td>
@@ -94,6 +97,44 @@
 				<button style="position: relative;" class="btn btn-primary btn-lg" data-bind="click: create">Crear Tarea</button>
 			</div>
 		</div>			
+	</div>
+
+	<div class="modal fade" id="modalCalificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Calificar Alumnos</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h3>Estos son los alumnos que han respondido a esta tarea: </h3>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><h3>Alumno</h3></th>
+								<th><h3>Archivo</h3></th>
+								<th><h3>Contenido</h3></th>
+								<th><h3>Calificacion</h3></th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: responses">
+							<tr>
+								<td scope="row"><h3 data-bind="text: student"></h3></td>
+								<td scope="row"><h3><a data-bind="attr: {href:  'http://localhost:8000' + file, target: '_blank'}">Descargar archivo</a></h3></td>
+								<td scope="row"><h3 data-bind="answer"></h3></td>
+								<td scope="row"><h3><input type="text" data-bind="textInput: grade"/></h3></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="button" id="send" class="btn btn-primary"   data-dismiss="modal">Aceptar</button>
+				</div>
+			</div>
+		</div>
 	</div>
 
 			

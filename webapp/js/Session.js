@@ -1,15 +1,14 @@
 var noUser = [
 	{menu : "Inicio", url : "/webapp/index.html"},
-	{menu : "Iniciar SesiÃ³n", url : "/webapp/html/log_in.html"},
+	{menu : "Iniciar Sesion", url : "/webapp/html/log_in.html"},
 	{menu : "Crear Cuenta", url : "/webapp/html/registro.html"}
 ];
 
 var withUserStudent = [
 	{menu : "Inicio", url : "/webapp/index.html"},
 	{menu : "Tareas", url : "/webapp/html/student/tareas.html"},
-	{menu : "Cursos", url : "/webapp/html/student/cursos.html"},
-	{menu : "Test", url : "/webapp/html/student/cuestionario.html"},
-	{menu : "Calificaciones", url : "/webapp/html/student/calificaciones.html"}
+	{menu : "Cursos", url : "/webapp/html/student/cursos.html"}
+	//{menu : "Test", url : "/webapp/html/student/cuestionario.html"},
 ];
 
 var withUserTeacher = [
@@ -29,7 +28,6 @@ var withUserSuperUser = [
     {menu : "Tareas Prof", url: "/webapp/html/teacher/tareas.html"},
     {menu : "Tareas Est", url: "/webapp/html/student/tareas.html"},
     {menu : "Cursos Est", url: "/webapp/html/student/cursos.html"},
-    {menu : "Calif Est", url: "/webapp/html/student/calificaciones.html"}
 ];
 
 function Session(token, userType) {
@@ -71,6 +69,10 @@ function Session(token, userType) {
         return self.token;
     }
 }
+
+function getNoUserMenu() {
+     return noUser
+ }
 
 function testSession() {
     var session =  new Session("1","testtoken", "teacher");

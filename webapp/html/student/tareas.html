@@ -41,7 +41,7 @@
 				</ul>
 			</div>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span><h4>Logout</h4></a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-out" data-bind="click: destroySession"></span><h4>Logout</h4></a></li>
 			</ul>
 		</div><!--/.container-->
 	</nav><!--/nav-->
@@ -64,6 +64,7 @@
 					<!--th><h3>    Recursos</h3></th-->
 					<th scope="col"><h2>	Descripción</h2></th>
 					<!--th scope="col" ><h2>	Detalles</h2></th>-->
+					<th scope="col"><h2>Calificacion</h2></th>
 					<th scope="col" ><h2>	Subir</h2></th>
 				</tr>
 				</thead>
@@ -75,7 +76,8 @@
 					<!--td><h3><a href="text:" data-bind="#"></a></h3></td-->
 					<td><h3 data-bind="text: description"></h3></td>
 					<!--td><h3 data-bind="text: tipo"></h3></td>-->
-					<td><h3><button data-bind="click: openModal">Subir tarea</button></h3></td>
+					<td><h3 class="center" data-bind="text: gradeObservable"></h3></td>
+					<td><h3><button data-bind="click: openModal, text: uploaded() ? 'Actualizar Tarea' : 'Subir Tarea'"></button></h3></td>
 				</tr>
 				</tbody>
 			</table>
@@ -91,14 +93,16 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<h3>Seleccione el archivo de su computadora</h3>
-						<h3><input id="fileupload" type="file" enctype="multipart/form-data"/></h3>
+						<h3 data-bind="text: uploaded() ? 'Archivo actual' : 'Seleccione el archivo de su computadora'"></h3>
+						<h3><input id="fileupload" data-bind="visible: !uploaded()" type="file" enctype="multipart/form-data"/>
+							<a data-bind="attr: {href: file, target: '_blank'}, visible: uploaded">Descargar archivo</a>
+							<button data-bind="visible: uploaded, click: function(){$root.uploaded(false);}">Cambiar archivo</button></h3>
 						<h3>O desarrolle su tarea en el siguiente campo: </h3>
-						<textarea rows="15" cols="15" data-bind="textInput: content"></textarea>
+						<h3><textarea rows="10" cols="30" data-bind="textInput: content"></textarea></h3>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary"   data-dismiss="modal">Subir Tarea</button>
+						<button type="button" id="send" class="btn btn-primary"   data-dismiss="modal">Subir Tarea</button>
 					</div>
 				</div>
 			</div>

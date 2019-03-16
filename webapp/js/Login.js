@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    logInViewModel.init();
 	ko.applyBindings(logInViewModel);
 	$("#main-contact-form").submit(logInViewModel.login);
 });
@@ -6,6 +7,16 @@ $(document).ready(function(){
 var logInViewModel = {
 	code_mail : ko.observable(),
 	password : ko.observable(),
+	menu : ko.observableArray([]),
+
+	init: function(){
+	    var self = this;
+	    var session = parseSession(Cookies.getJSON("session"));
+        if(session != null && session.isSessionActive()) {
+            window.location.href = "../index.html";
+         }
+        self.menu(getNoUserMenu());
+    },
 
 	/**
 	 * function to login
@@ -15,6 +26,7 @@ var logInViewModel = {
     		"username" : logInViewModel.code_mail(),
     		"password" : logInViewModel.password()
     	}
+
 
     	var loginJson = JSON.stringify(logIn);
     	$.ajax({
@@ -34,5 +46,5 @@ var logInViewModel = {
     	});
 
     	return false;
-	},
+	}
 };

@@ -1,5 +1,6 @@
 $(document).ready(function(){
-moment.locale("es");
+    configDatePicker();
+    moment.locale("es");
     ko.applyBindings(coursesTeacherViewModel);
     coursesTeacherViewModel.init();
 });
@@ -26,6 +27,9 @@ var coursesTeacherViewModel = {
             if(data != null){
                  for(var i = 0; i < data.professor.length; i++){
                     data.professor[i]["editable"] = ko.observable(false);
+                    data.professor[i]["startObservable"] = ko.observable(new Date(data.professor[i].start));
+                    data.professor[i]["endObservable"] = ko.observable(new Date(data.professor[i].end));
+                    data.professor[i]["password"] = ko.observable(data.professor[i].password);
                     data.professor[i]["editTextFields"] = function() {
                         if(this.editable()) {
                             this.editable(!this.editable());
@@ -60,14 +64,17 @@ var coursesTeacherViewModel = {
             //descripcion: "",
             end: new Date(),
             active: true,
-            password: "",
+            password_str: "",
+            password: ko.observable(false),
             editable: ko.observable(true),
             editTextFields: function() {
                 if(this.editable()) {
                     var course = this;
                     this.editable(!this.editable());
+                    this.start = this.startObservable();
+                    this.end = this.endObservable();
                     this.start = moment(this.start).format("YYYY-MM-DD");
-                    this.end = moment(this.start).format("YYYY-MM-DD");
+                    this.end = moment(this.end).format("YYYY-MM-DD");
                     self.courseViewModel.createCourse(this, self.session.getToken(), function(data){
                         course.id = data.course.id;
                     });
@@ -84,11 +91,12 @@ var coursesTeacherViewModel = {
 
 
         };
+        c.startObservable = ko.observable(c.start);
+        c.endObservable = ko.observable(c.end);
         self.courses.push(c);
     },
-     logout: function() {
-        var self = this;
+     destroySession: function(){
+         var self = this;
          self.session.destroySession();
-         window.location.href = "/webapp/html/log_in.html";
      }
 };
