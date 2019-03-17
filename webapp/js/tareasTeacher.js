@@ -123,6 +123,7 @@ var tareasTeacherViewModel = {
                     this.limit = this.limitObservable();
                     self.homeworkViewModel.createHomework(this, self.session.getToken(), function(data){
                         tarea.id = data.homework.id;
+                        self.populateHomeworkTable(self.currentCourse());
                     }, this.file());
                 } else {
                     this.editable(!this.editable());

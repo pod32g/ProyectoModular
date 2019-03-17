@@ -1,7 +1,9 @@
 $(document).ready(function() {
     //createTestSession();
+    configDatePicker();
     ko.applyBindings(tareasStudentViewModel);
     $("#course").change(function() {
+        tareasStudentViewModel.cleanObservables();
        tareasStudentViewModel.populateHomeworkTable($(this).val());
     });
     tareasStudentViewModel.init();
@@ -62,11 +64,13 @@ var tareasStudentViewModel = {
                    element.openModal = function(){
                         if(element.response != null && element.response.length > 0){
                             self.content(element.response[0].answer);
-                            self.file("http://localhost:8000" + element.response[0].file);
+                            self.file(element.response[0].file);
                         }
                         $("#modalEnroll").modal("show");
+                        self.uploaded(element.uploaded());
                         $("#modalEnroll").on("hide.bs.modal", function(){
                             self.send(element);
+                            $("#modalEnroll").unbind("hide.bs.modal");
                         });
                    }
                 });
@@ -81,12 +85,14 @@ var tareasStudentViewModel = {
             var archivo = $("#fileupload").prop("files")[0];
             if(data.uploaded()){
                 self.homeworkViewModel.updateStudentHomework(data.id, self.content(), true, archivo, self.session.getToken(), function(){
-                    //TODO: ya hare algo con el error
+                    self.cleanObservables();
+                    self.loadCourses();
                 });
             }
             else{
                 self.homeworkViewModel.sendHomework(data.id, self.content(), true, self.session.getToken(), archivo, function(){
-                    //TODO: Eventaulemtne hara algo
+                    self.cleanObservables();
+                    self.loadCourses();
                 });
             }
         }
@@ -94,6 +100,12 @@ var tareasStudentViewModel = {
     destroySession: function(){
         var self = this;
         self.session.destroySession();
+    },
+
+    cleanObservables: function(){
+        tareasStudentViewModel.content("");
+        tareasStudentViewModel.file(null);
+        tareasStudentViewModel.uploaded(false);
     }
 
 

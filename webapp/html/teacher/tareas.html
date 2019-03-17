@@ -122,8 +122,10 @@
 						<tbody data-bind="foreach: responses">
 							<tr>
 								<td scope="row"><h3 data-bind="text: student"></h3></td>
-								<td scope="row"><h3><a data-bind="attr: {href:  'http://localhost:8000' + file, target: '_blank'}">Descargar archivo</a></h3></td>
-								<td scope="row"><h3 data-bind="answer"></h3></td>
+								<td scope="row"><h3><a data-bind="text: file != null ? 'Descargar Archivo' : 'N/A',
+								attr: file != null ? {href:  'http://localhost:8000' + file, target: '_blank'} : null">
+									</a></h3></td>
+								<td scope="row"><h3 data-bind="text: answer === '' ? 'N/A' : answer"></h3></td>
 								<td scope="row"><h3><input type="text" data-bind="textInput: grade"/></h3></td>
 							</tr>
 						</tbody>
