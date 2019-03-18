@@ -11,6 +11,8 @@ var coursesTeacherViewModel = {
     courses : ko.observableArray([]),
     courseViewModel : CourseViewModel,
     session: parseSession(Cookies.getJSON("session")),
+    status: ko.observable(),
+    message: ko.observable(),
 
     init: function() {
             var self = this;
@@ -27,16 +29,26 @@ var coursesTeacherViewModel = {
             if(data != null){
                  for(var i = 0; i < data.professor.length; i++){
                     data.professor[i]["editable"] = ko.observable(false);
-                    data.professor[i]["startObservable"] = ko.observable(new Date(data.professor[i].start));
-                    data.professor[i]["endObservable"] = ko.observable(new Date(data.professor[i].end));
+                    data.professor[i]["startObservable"] = ko.observable(new Date(data.professor[i].start.replace("-", "/")));
+                    data.professor[i]["endObservable"] = ko.observable(new Date(data.professor[i].end.replace("-", "/")));
                     data.professor[i]["password"] = ko.observable(data.professor[i].password);
                     data.professor[i]["editTextFields"] = function() {
                         if(this.editable()) {
                             this.editable(!this.editable());
+                            this.start = this.startObservable();
+                            this.end = this.endObservable();
                             this.start = moment(this.start).format("YYYY-MM-DD");
                             this.end = moment(this.end).format("YYYY-MM-DD");
-                            self.courseViewModel.updateCourse(this, self.session.getToken(), function(){
-                                //TODO: Por si se me ocurre algo
+                            self.courseViewModel.updateCourse(this, self.session.getToken(), function(data){
+                                self.status(data.code);
+                                if(data.code == 200){
+                                    self.message("Se ha modificado correctamente el curso");
+                                    $("#alert").show();
+                                }
+                                else{
+                                    self.message("Algo ha salido mal");
+                                    $("#alert").show();
+                                }
                             });
                         } else {
                             this.editable(!this.editable());
@@ -45,7 +57,16 @@ var coursesTeacherViewModel = {
                     data.professor[i]["remove"] = function() {
                         var course = this;
                          self.courseViewModel.deleteCourse(course.id, self.session.getToken(), function(data){
-                               self.courses.remove(course);
+                               self.status(data.code);
+                               if(data.code == 200){
+                                   self.message("Se ha elminado correctamente el curso");
+                                    $("#alert").show();
+                                    self.courses.remove(course);
+                               }
+                               else{
+                                    self.message("Algo ha salido mal");
+                                    $("#alert").show();
+                               }
                          });
                     };
                     delete data.professor[i].professor;
@@ -76,7 +97,16 @@ var coursesTeacherViewModel = {
                     this.start = moment(this.start).format("YYYY-MM-DD");
                     this.end = moment(this.end).format("YYYY-MM-DD");
                     self.courseViewModel.createCourse(this, self.session.getToken(), function(data){
-                        course.id = data.course.id;
+                        self.status(data.code);
+                        if(data.code == 112){
+                            self.message("Algo ha salido mal");
+                            $("#alert").show();
+                        }
+                        else if(data.code == 200){
+                           course.id = data.course.id;
+                           self.message("Se ha creado el curso correctamente");
+                            $("#alert").show();
+                        }
                     });
                 } else {
                     this.editable(!this.editable());

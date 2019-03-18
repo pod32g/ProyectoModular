@@ -11,6 +11,7 @@ var signUpViewModel = {
 	code : ko.observable(),
 	password : ko.observable(),
 	menu : ko.observableArray([]),
+	error : ko.observable(false),
 
 	init : function(){
 	    var self = this;
@@ -19,6 +20,12 @@ var signUpViewModel = {
             window.location.href = "../index.html";
          }
         self.menu(getNoUserMenu());
+	},
+
+	redirect: function(){
+	    $("#ok").click(function(){
+	        window.location.href="../index.html";
+	    });
 	}
 };
 
@@ -36,7 +43,19 @@ function doPost(){
 		contentType : "application/json",
 		data : signUpJson,
 		method : "post",
-		success : function(response){	
+		success : function(response){
+		    signUpViewModel.error(false);
+		    $("#alertSuccess").modal("show");
+		    if(response.code == 200){
+		        $("#message").html("Se ha registrado exitosamente");
+		        signUpViewModel.redirect();
+		    }
+		    else if(response.code == 101){
+		        $("#message").html("El usuario ya existe");
+		    }
+		    else{
+		        $("#message").html("Error desconocido");
+		    }
 		}
 	});
 	return false;

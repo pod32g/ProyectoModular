@@ -51,6 +51,10 @@
         </nav><!--/nav-->
     </header><!--/header-->
 
+	<div data-bind="attr: {class: status() == 200 ? 'alert alert-success' : 'alert alert-danger'}" style="display:none" role="alert" id="alert">
+		<strong data-bind="text: message"></strong>
+	</div>
+
 	<div class="about">
 		<div class="container">
 			<div class="text-center">

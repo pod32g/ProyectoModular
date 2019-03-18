@@ -41,7 +41,10 @@ var logInViewModel = {
                 window.location.href = "../index.html";
     		},
     		error: function(response) {
-    		    console.log(response);
+    		    $("#alertSuccess").modal("show");
+                if(response.responseJSON.code == 100){
+                    $("#message").html("Usuario o contrasenia incorrectos");
+                }
     		}
     	});
 

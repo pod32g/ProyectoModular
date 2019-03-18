@@ -20,6 +20,8 @@ var tareasTeacherViewModel = {
     currentCourse: ko.observable(),
     session: parseSession(Cookies.getJSON("session")),
     responses: ko.observableArray([]),
+    message: ko.observable(),
+    status: ko.observable(),
 
     /**
      *   function to initialize page data
@@ -60,7 +62,15 @@ var tareasTeacherViewModel = {
                             this.limit = this.limitObservable();
 
                             self.homeworkViewModel.updateHomework(this, self.session.getToken(), function(data){
-                                //TODO por si se me ocurre algo
+                                self.status(data.code);
+                                if(data.code == 200){
+                                    self.message("La tarea se ha actualizado correctamente");
+                                    $("#alert").show();
+                                }
+                                else{
+                                    self.message("Algo ha salido mal");
+                                    $("#alert").show();
+                                }
                             });
                         } else {
                             this.editable(!this.editable());
@@ -69,14 +79,22 @@ var tareasTeacherViewModel = {
                         data.homework[i]["remove"] = function() {
                             var homework = this;
                              self.homeworkViewModel.deleteHomework(homework.id, self.session.getToken(), function(data){
-                                   self.homework.remove(homework);
+                                   self.status(data.code);
+                                   if(data.code == 200){
+                                      self.homework.remove(homework);
+                                       self.message("La tarea se ha eliminado correctamente");
+                                       $("#alert").show();
+                                   }
+                                   else{
+                                       self.message("Algo ha salido mal");
+                                       $("#alert").show();
+                                   }
                              });
                         };
                     //delete data.homework[i].responses;
                     if(data.homework[i].responses != null && data.homework[i].responses.length > 0){
                         data.homework[i]["calificar"] = function(){
                             self.responses(this.responses);
-
                             $("#modalCalificar").modal("show");
                             $("#modalCalificar").on("hide.bs.modal", function(event){
                                 self.setGrades(event);
@@ -122,8 +140,18 @@ var tareasTeacherViewModel = {
                     this.editable(!this.editable());
                     this.limit = this.limitObservable();
                     self.homeworkViewModel.createHomework(this, self.session.getToken(), function(data){
-                        tarea.id = data.homework.id;
-                        self.populateHomeworkTable(self.currentCourse());
+                        self.status(data.code);
+                        if(data.code == 200){
+                            self.message("La tarea se ha creado correctamente");
+                            $("#alert").show();
+                            tarea.id = data.homework.id;
+                            self.populateHomeworkTable(self.currentCourse());
+                        }
+                        else{
+                            self.message("Algo ha salido mal");
+                            $("#alert").show();
+                        }
+
                     }, this.file());
                 } else {
                     this.editable(!this.editable());

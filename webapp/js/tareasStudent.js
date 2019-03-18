@@ -54,7 +54,9 @@ var tareasStudentViewModel = {
                 data.homework.forEach(function(element){
                    element.gradeObservable = ko.observable("-");
                    element.uploaded = ko.observable(false);
+                   element.gradedObservable = ko.observable(false);
                    if(element.response != null &&  element.response.length > 0){
+                         element.gradedObservable(element.response[0].graded);
                         if(element.response[0].graded){
                             element.gradeObservable(element.response[0].grade);
                         }
